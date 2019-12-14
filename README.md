@@ -1,2 +1,2 @@
 # wzhanq.github.io
-# 菜单点菜网页
+菜单点菜网页
