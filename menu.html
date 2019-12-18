@@ -225,8 +225,18 @@
             tbody[0].appendChild(newTr);
             total += resultList[i].menuPrice;
         }
-        if (totalPriceStart > total || total > totalPriceEnd){
-            getMenuRandomByClass();
+        if (totalPriceStart && totalPriceEnd){
+            if (totalPriceStart > total || total > totalPriceEnd){
+                getMenuRandomByClass();
+            }
+        } else if (totalPriceStart && !totalPriceEnd){
+            if (totalPriceStart > total){
+                getMenuRandomByClass();
+            }
+        } else if (!totalPriceStart && totalPriceEnd){
+            if (total > totalPriceEnd){
+                getMenuRandomByClass();
+            }
         }
         let totalTr = document.createElement('tr');
         totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td>' + total + '元</td>';
@@ -248,8 +258,18 @@
             tbody[0].appendChild(newTr);
             total += resultList[i].menuPrice;
         }
-        if (totalPriceStart > total || total > totalPriceEnd){
-            getMenuRandomByType();
+        if (totalPriceStart && totalPriceEnd){
+            if (totalPriceStart > total || total > totalPriceEnd){
+                getMenuRandomByType();
+            }
+        } else if (totalPriceStart && !totalPriceEnd){
+            if (totalPriceStart > total){
+                getMenuRandomByType();
+            }
+        } else if (!totalPriceStart && totalPriceEnd){
+            if (total > totalPriceEnd){
+                getMenuRandomByType();
+            }
         }
         let totalTr = document.createElement('tr');
         totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td>' + total + '元</td>';
@@ -265,15 +285,23 @@
             let menuClassList2 = menuList.filter(function getClass2(val) {
                 return val.menuClass === '锅仔类';
             });
-            let i1 = 0, index1;
-            while (i1++ < count1) {
+            let i1 = 0, index1, map1 = {};
+            while (i1 < count1) {
                 index1 = Math.floor((menuClassList1.length) * Math.random());
-                resultList.push(menuClassList1[index1]);
+                if (map1[index1] === undefined) {
+                    resultList.push(menuClassList1[index1]);
+                    map1[index1] = true;
+                    i1 ++;
+                }
             }
-            let i2 = 0, index2;
-            while (i2++ < count2) {
+            let i2 = 0, index2, map2 = {};
+            while (i2 < count2) {
                 index2 = Math.floor((menuClassList2.length) * Math.random());
-                resultList.push(menuClassList2[index2]);
+                if (map2[index2] === undefined) {
+                    resultList.push(menuClassList2[index2]);
+                    map2[index2] = true;
+                    i2 ++;
+                }
             }
         } else if (type === 'menuType') {
             let menuTypeList1 = menuList.filter(function getType1(val) {
@@ -282,15 +310,23 @@
             let menuTypeList2 = menuList.filter(function getType2(val) {
                 return val.menuType === '素';
             });
-            let i1 = 0, index1;
-            while (i1++ < count1) {
+            let i1 = 0, index1, map1 = {};
+            while (i1 < count1) {
                 index1 = Math.floor((menuTypeList1.length) * Math.random());
-                resultList.push(menuTypeList1[index1]);
+                if (map1[index1] === undefined) {
+                    resultList.push(menuTypeList1[index1]);
+                    map1[index1] = true;
+                    i1 ++;
+                }
             }
-            let i2 = 0, index2;
-            while (i2++ < count2) {
+            let i2 = 0, index2, map2 = {};
+            while (i2 < count2) {
                 index2 = Math.floor((menuTypeList2.length) * Math.random());
-                resultList.push(menuTypeList2[index2]);
+                if (map2[index2] === undefined) {
+                    resultList.push(menuTypeList2[index2]);
+                    map2[index2] = true;
+                    i2 ++;
+                }
             }
         }
         return resultList;
