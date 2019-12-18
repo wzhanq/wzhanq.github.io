@@ -211,11 +211,12 @@
     }
 
     function getMenuRandomByClass() {
-        let totalPriceStart = document.getElementsByClassName("totalPriceStart")[0].value;
-        let totalPriceEnd = document.getElementsByClassName("totalPriceEnd")[0].value;
+        let totalPriceStart = parseInt(document.getElementsByClassName("totalPriceStart")[0].value);
+        let totalPriceEnd = parseInt(document.getElementsByClassName("totalPriceEnd")[0].value);
         let resultList = getRandomArrayElements(menuList, document.getElementById("menuClassCount1").value, document.getElementById("menuClassCount2").value, "menuClass");
         $("table tbody").html('');
         let total = 0;
+        let flag = false;
         for (let i = 0; i < resultList.length; i ++){
             //创建新的tr（newTr）
             let newTr = document.createElement('tr');
@@ -227,28 +228,34 @@
         }
         if (totalPriceStart && totalPriceEnd){
             if (totalPriceStart > total || total > totalPriceEnd){
+                flag = true;
                 getMenuRandomByClass();
             }
         } else if (totalPriceStart && !totalPriceEnd){
             if (totalPriceStart > total){
+                flag = true;
                 getMenuRandomByClass();
             }
         } else if (!totalPriceStart && totalPriceEnd){
             if (total > totalPriceEnd){
+                flag = true;
                 getMenuRandomByClass();
             }
         }
-        let totalTr = document.createElement('tr');
-        totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td>' + total + '元</td>';
-        tbody[0].appendChild(totalTr);
+        if (!flag){
+            let totalTr = document.createElement('tr');
+            totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td>' + total + '元</td>';
+            tbody[0].appendChild(totalTr);
+        }
     }
 
     function getMenuRandomByType() {
-        let totalPriceStart = document.getElementsByClassName("totalPriceStart")[1].value;
-        let totalPriceEnd = document.getElementsByClassName("totalPriceEnd")[1].value;
+        let totalPriceStart = parseInt(document.getElementsByClassName("totalPriceStart")[1].value);
+        let totalPriceEnd = parseInt(document.getElementsByClassName("totalPriceEnd")[1].value);
         let resultList = getRandomArrayElements(menuList, document.getElementById("menuTypeCount1").value, document.getElementById("menuTypeCount2").value, "menuType");
         $("table tbody").html('');
         let total = 0;
+        let flag = false;
         for (let i = 0; i < resultList.length; i ++){
             //创建新的tr（newTr）
             let newTr = document.createElement('tr');
@@ -260,20 +267,25 @@
         }
         if (totalPriceStart && totalPriceEnd){
             if (totalPriceStart > total || total > totalPriceEnd){
+                flag = true;
                 getMenuRandomByType();
             }
         } else if (totalPriceStart && !totalPriceEnd){
             if (totalPriceStart > total){
+                flag = true;
                 getMenuRandomByType();
             }
         } else if (!totalPriceStart && totalPriceEnd){
             if (total > totalPriceEnd){
+                flag = true;
                 getMenuRandomByType();
             }
         }
-        let totalTr = document.createElement('tr');
-        totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td>' + total + '元</td>';
-        tbody[0].appendChild(totalTr);
+        if (!flag){
+            let totalTr = document.createElement('tr');
+            totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td>' + total + '元</td>';
+            tbody[0].appendChild(totalTr);
+        }
     }
 
     function getRandomArrayElements(arr, count1, count2, type) {
