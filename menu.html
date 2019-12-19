@@ -48,11 +48,12 @@
         <table class="table table-striped table-bordered table-hover" style="margin-top:20px;">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">序号</th>
-                <th scope="col">菜名</th>
-                <th scope="col">类型</th>
-                <th scope="col">类别</th>
-                <th scope="col">价格</th>
+                <th scope="col" width="150px">序号</th>
+                <th scope="col" width="350px">菜名</th>
+                <th scope="col" width="150px">类型</th>
+                <th scope="col" width="150px">类别</th>
+                <th scope="col" width="180px">权重</th>
+                <th scope="col" width="150px">价格</th>
             </tr>
             </thead>
             <tbody></tbody>
@@ -71,91 +72,90 @@
         crossorigin="anonymous"></script>
 <script>
     const menuList = [
-        {menuPrice: 12, menuName: '香干肉丝', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 28, menuName: '脆皮鲈鱼', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 15, menuName: '锡包茄子', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 15, menuName: '酱肉冬笋炒青蒜', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 8, menuName: '酸辣土豆丝', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 26, menuName: '红烧汪刺鱼', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 10, menuName: '番茄炒蛋', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 12, menuName: '包菜粉丝', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 15, menuName: '鱼香肉丝', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 12, menuName: '韭菜冬笋炒肉丝', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 10, menuName: '地三鲜', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 15, menuName: '玉米烙', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 15, menuName: '腊肠炒甜豆', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 12, menuName: '回锅藕片', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 18, menuName: '干锅鸡', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 10, menuName: '耗油生菜', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 10, menuName: '鱼香茄子', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 15, menuName: '糖醋里脊', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 15, menuName: '回锅肉', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 15, menuName: '上汤娃娃菜', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 12, menuName: '家常豆腐', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 18, menuName: '上汤肚片', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 12, menuName: '刀倒菜尖椒肉丝', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 18, menuName: '辣子鸡', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 15, menuName: '果仁时蔬', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 18, menuName: '雪菜尖椒鱿鱼丝', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 12, menuName: '雪菜蘑菇', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 18, menuName: '水煮肉片', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 12, menuName: '三丝本芹', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 18, menuName: '干锅茶树菇', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 18, menuName: '鳗鱼茄子煲', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 18, menuName: '农家小炒肉', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 12, menuName: '肉丝跑蛋', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 18, menuName: '番茄烧牛腩', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 12, menuName: '上汤菠菜', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 22, menuName: '酸菜鱼', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 12, menuName: '酱爆荷兰豆', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 12, menuName: '火焖冬瓜', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 12, menuName: '广式豇豆', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 12, menuName: '蛋黄南瓜', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 12, menuName: '浪糊白菜', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 12, menuName: '虾皮尖椒', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 12, menuName: '雪菜毛豆肉丝', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 18, menuName: '尖椒炒肚片', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 22, menuName: '钱江肉丝', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 10, menuName: '香菇青菜', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 12, menuName: '鸡汁日本豆腐', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 32, menuName: '干锅香辣虾', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 18, menuName: '虾仁青豆炒蛋', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 38, menuName: '铁板牛仔骨', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 55, menuName: '红烧羊肉煲', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 16, menuName: '杭三鲜', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 8, menuName: '榨菜肉丝汤', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 18, menuName: '土豆牛腩煲', menuClass: '小炒类', menuType: '荤'},
-        {menuPrice: 10, menuName: '开胃羹', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 8, menuName: '西红柿蛋汤', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 10, menuName: '酒酿圆子羹', menuClass: '小炒类', menuType: '素'},
-        {menuPrice: 12, menuName: '干锅土豆片', menuClass: '锅仔类', menuType: '素'},
-        {menuPrice: 12, menuName: '干锅花菜', menuClass: '锅仔类', menuType: '素'},
-        {menuPrice: 12, menuName: '干锅千叶豆腐', menuClass: '锅仔类', menuType: '素'},
-        {menuPrice: 12, menuName: '干锅包菜', menuClass: '锅仔类', menuType: '素'},
-        {menuPrice: 12, menuName: '素锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 15, menuName: '鲫鱼豆腐锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 15, menuName: '鱼头豆腐锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 15, menuName: '酸菜鱼头豆腐锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 15, menuName: '笋干鸡肉锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 15, menuName: '芋艿排骨锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 15, menuName: '海带排骨锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 18, menuName: '海鲜锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 18, menuName: '腌多鲜锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 18, menuName: '酸菜牛腩锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 18, menuName: '三鲜锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 18, menuName: '萝卜牛腩锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 20, menuName: '肥牛锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 20, menuName: '牛蛙锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 48, menuName: '羊肉锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 28, menuName: '羊杂锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 26, menuName: '汪刺鱼锅仔', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 38, menuName: '香辣中翅', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 15, menuName: '八宝酱丁', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 26, menuName: '水煮牛肉', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 26, menuName: '八宝酱小排', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 15, menuName: '铁板鸡块', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 15, menuName: '酸菜肥牛汤粉', menuClass: '锅仔类', menuType: '荤'},
-        {menuPrice: 12, menuName: '香肠鸡蛋炒粉', menuClass: '锅仔类', menuType: '荤'}];
+        {menuPrice: 12, menuName: '香干肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 28, menuName: '脆皮鲈鱼', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '锡包茄子', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '酱肉冬笋炒青蒜', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 8, menuName: '酸辣土豆丝', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 26, menuName: '红烧汪刺鱼', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 10, menuName: '番茄炒蛋', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '包菜粉丝', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 15, menuName: '鱼香肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '韭菜冬笋炒肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 10, menuName: '地三鲜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 15, menuName: '玉米烙', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 15, menuName: '腊肠炒甜豆', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '回锅藕片', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 18, menuName: '干锅鸡', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 10, menuName: '耗油生菜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 10, menuName: '鱼香茄子', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 15, menuName: '糖醋里脊', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '回锅肉', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '上汤娃娃菜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '家常豆腐', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 18, menuName: '上汤肚片', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '刀倒菜尖椒肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '辣子鸡', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '雪菜尖椒鱿鱼丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '雪菜蘑菇', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 18, menuName: '水煮肉片', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '三丝本芹', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 18, menuName: '干锅茶树菇', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 18, menuName: '鳗鱼茄子煲', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '农家小炒肉', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '肉丝跑蛋', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '番茄烧牛腩', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '上汤菠菜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 22, menuName: '酸菜鱼', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '酱爆荷兰豆', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '火焖冬瓜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '广式豇豆', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '蛋黄南瓜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '浪糊白菜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '虾皮尖椒', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '雪菜毛豆肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '尖椒炒肚片', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 22, menuName: '钱江肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 10, menuName: '香菇青菜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '鸡汁日本豆腐', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 32, menuName: '干锅香辣虾', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '虾仁青豆炒蛋', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 38, menuName: '铁板牛仔骨', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 55, menuName: '红烧羊肉煲', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 16, menuName: '杭三鲜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 8, menuName: '榨菜肉丝汤', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 18, menuName: '土豆牛腩煲', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 10, menuName: '开胃羹', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 8, menuName: '西红柿蛋汤', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 10, menuName: '酒酿圆子羹', menuClass: '小炒类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '干锅土豆片', menuClass: '锅仔类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '干锅花菜', menuClass: '锅仔类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '干锅千叶豆腐', menuClass: '锅仔类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '干锅包菜', menuClass: '锅仔类', menuType: '素', menuWeight: 5},
+        {menuPrice: 12, menuName: '素锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '鲫鱼豆腐锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '鱼头豆腐锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '酸菜鱼头豆腐锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '笋干鸡肉锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '芋艿排骨锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '海带排骨锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '海鲜锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '腌多鲜锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '酸菜牛腩锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '三鲜锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 18, menuName: '萝卜牛腩锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 20, menuName: '肥牛锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 20, menuName: '牛蛙锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 48, menuName: '羊肉锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 28, menuName: '羊杂锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 26, menuName: '汪刺鱼锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 38, menuName: '香辣中翅', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '八宝酱丁', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 26, menuName: '水煮牛肉', menuClass: '锅仔类', menuType: '荤', menuWeight: 3},
+        {menuPrice: 26, menuName: '八宝酱小排', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '铁板鸡块', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 15, menuName: '酸菜肥牛汤粉', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
+        {menuPrice: 12, menuName: '香肠鸡蛋炒粉', menuClass: '锅仔类', menuType: '荤', menuWeight: 5}];
 
     let tbody = document.getElementsByTagName('tbody');
     let total = 0;
@@ -163,13 +163,13 @@
         //创建新的tr（newTr）
         let newTr = document.createElement('tr');
         //添加tr里的内容
-        newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + menuList[i].menuName + '</td><td>' + menuList[i].menuType + '</td><td>' + menuList[i].menuClass + '</td><td>' + menuList[i].menuPrice + '元</td>';
+        newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + menuList[i].menuName + '</td><td>' + menuList[i].menuType + '</td><td>' + menuList[i].menuClass + '</td><td>' + menuList[i].menuWeight + '</td><td>' + menuList[i].menuPrice + '元</td>';
         //把新的tr(newTr)加入到tbody中
         tbody[0].appendChild(newTr);
         total += menuList[i].menuPrice;
     }
     let totalTr = document.createElement('tr');
-    totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td>' + total + '元</td>';
+    totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td></td><td>' + total + '元</td>';
     tbody[0].appendChild(totalTr);
 
     function selectMenu() {
@@ -187,7 +187,7 @@
                     //创建新的tr（newTr）
                     let newTr = document.createElement('tr');
                     //添加tr里的内容
-                    newTr.innerHTML = '<td>' + (j + 1) + '</td><td>' + searchList[i].menuName + '</td><td>' + searchList[i].menuType + '</td><td>' + searchList[i].menuClass + '</td><td>' + searchList[i].menuPrice + '元</td>';
+                    newTr.innerHTML = '<td>' + (j + 1) + '</td><td>' + searchList[i].menuName + '</td><td>' + searchList[i].menuType + '</td><td>' + searchList[i].menuClass + '</td><td>' + searchList[i].menuWeight + '</td><td>' + searchList[i].menuPrice + '元</td>';
                     //把新的tr(newTr)加入到tbody中
                     tbody[0].appendChild(newTr);
                     total += searchList[i].menuPrice;
@@ -199,14 +199,14 @@
                 //创建新的tr（newTr）
                 let newTr = document.createElement('tr');
                 //添加tr里的内容
-                newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + searchList[i].menuName + '</td><td>' + searchList[i].menuType + '</td><td>' + searchList[i].menuClass + '</td><td>' + searchList[i].menuPrice + '元</td>';
+                newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + searchList[i].menuName + '</td><td>' + searchList[i].menuType + '</td><td>' + searchList[i].menuClass + '</td><td>' + searchList[i].menuWeight + '</td><td>' + searchList[i].menuPrice + '元</td>';
                 //把新的tr(newTr)加入到tbody中
                 tbody[0].appendChild(newTr);
                 total += searchList[i].menuPrice;
             }
         }
         let totalTr = document.createElement('tr');
-        totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td>' + total + '元</td>';
+        totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td></td><td>' + total + '元</td>';
         tbody[0].appendChild(totalTr);
     }
 
@@ -221,7 +221,7 @@
             //创建新的tr（newTr）
             let newTr = document.createElement('tr');
             //添加tr里的内容
-            newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + resultList[i].menuName + '</td><td>' + resultList[i].menuType + '</td><td>' + resultList[i].menuClass + '</td><td>' + resultList[i].menuPrice + '元</td>';
+            newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + resultList[i].menuName + '</td><td>' + resultList[i].menuType + '</td><td>' + resultList[i].menuClass + '</td><td>' + resultList[i].menuWeight + '</td><td>' + resultList[i].menuPrice + '元</td>';
             //把新的tr(newTr)加入到tbody中
             tbody[0].appendChild(newTr);
             total += resultList[i].menuPrice;
@@ -244,7 +244,7 @@
         }
         if (!flag){
             let totalTr = document.createElement('tr');
-            totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td>' + total + '元</td>';
+            totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td></td><td>' + total + '元</td>';
             tbody[0].appendChild(totalTr);
         }
     }
@@ -260,7 +260,7 @@
             //创建新的tr（newTr）
             let newTr = document.createElement('tr');
             //添加tr里的内容
-            newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + resultList[i].menuName + '</td><td>' + resultList[i].menuType + '</td><td>' + resultList[i].menuClass + '</td><td>' + resultList[i].menuPrice + '元</td>';
+            newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + resultList[i].menuName + '</td><td>' + resultList[i].menuType + '</td><td>' + resultList[i].menuClass + '</td><td>' + resultList[i].menuWeight + '</td><td>' + resultList[i].menuPrice + '元</td>';
             //把新的tr(newTr)加入到tbody中
             tbody[0].appendChild(newTr);
             total += resultList[i].menuPrice;
@@ -283,18 +283,25 @@
         }
         if (!flag){
             let totalTr = document.createElement('tr');
-            totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td>' + total + '元</td>';
+            totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td></td><td>' + total + '元</td>';
             tbody[0].appendChild(totalTr);
         }
     }
 
     function getRandomArrayElements(arr, count1, count2, type) {
         let resultList = [];
+        let list = [];
+        for (let i = 0; i < arr.length; i ++){
+            let j = 0;
+            while (j++ < arr[i].menuWeight){
+                list.push(arr[i]);
+            }
+        }
         if (type === 'menuClass') {
-            let menuClassList1 = menuList.filter(function getClass1(val) {
+            let menuClassList1 = list.filter(function getClass1(val) {
                 return val.menuClass === '小炒类';
             });
-            let menuClassList2 = menuList.filter(function getClass2(val) {
+            let menuClassList2 = list.filter(function getClass2(val) {
                 return val.menuClass === '锅仔类';
             });
             let i1 = 0, index1, map1 = {};
@@ -316,10 +323,10 @@
                 }
             }
         } else if (type === 'menuType') {
-            let menuTypeList1 = menuList.filter(function getType1(val) {
+            let menuTypeList1 = list.filter(function getType1(val) {
                 return val.menuType === '荤';
             });
-            let menuTypeList2 = menuList.filter(function getType2(val) {
+            let menuTypeList2 = list.filter(function getType2(val) {
                 return val.menuType === '素';
             });
             let i1 = 0, index1, map1 = {};
