@@ -8,52 +8,45 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <title>菜单</title>
 </head>
 <body>
-<div class="container" style="padding-top: 20px">
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" id="menuName" placeholder="菜名">
-        <select class="form-control" id="menuType">
-            <option>默认</option>
-            <option>荤</option>
-            <option>素</option>
-        </select>
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="submit" id="queryButton" onclick="selectMenu()">查询</button>
-        </div>
-    </div>
-    <div class="input-group mb-3">
-        <input type="number" class="form-control" id="menuClassCount1" placeholder="小炒类数量">
-        <input type="number" class="form-control" id="menuClassCount2" placeholder="锅仔类数量">
+<div class="container" style="padding-top: 20px;padding-bottom: 50px">
+    <div class="input-group" id="toolbar">
         <input type="number" class="form-control totalPriceStart" placeholder="总价下限">
         <input type="number" class="form-control totalPriceEnd" placeholder="总价上限">
+        <span style="padding-left: 10px;padding-right: 10px"></span>
+        <input type="number" class="form-control" id="menuClassCount1" placeholder="小炒类数量">
+        <input type="number" class="form-control" id="menuClassCount2" placeholder="锅仔类数量">
         <div class="input-group-append">
             <button class="btn btn-primary" type="submit" class="confirmButton" onclick="getMenuRandomByClass()">开始选择</button>
         </div>
-    </div>
-    <div class="input-group mb-3">
+        <span style="padding-left: 10px;padding-right: 10px"></span>
         <input type="number" class="form-control" id="menuTypeCount1" placeholder="荤类数量">
         <input type="number" class="form-control" id="menuTypeCount2" placeholder="素类数量">
-        <input type="number" class="form-control totalPriceStart" placeholder="总价下限">
-        <input type="number" class="form-control totalPriceEnd" placeholder="总价上限">
+        <input type="number" class="form-control" id="menuTypeCount3" placeholder="汤类数量">
         <div class="input-group-append">
             <button class="btn btn-primary" type="submit" class="confirmButton" onclick="getMenuRandomByType()">开始选择</button>
         </div>
-    </div>
-    <div class="input-group mb-3">
-        <button class="btn btn-primary" type="submit" class="submitButton" onclick="submitMenu()">上传到点菜群</button>
+        <button class="btn btn-primary" type="submit" class="submitButton" onclick="submitMenu()" style="margin-left: 20px">上传到点菜群</button>
     </div>
     <div class="menu">
-        <table class="table table-striped table-bordered table-hover" style="margin-top:20px;">
+        <table class="table table-striped table-bordered table-hover" id="table"
+               data-url="menuList.json" data-toggle="table" data-toolbar="#toolbar"
+               data-search="true" data-search-align="right" data-show-search-clear-button="true"
+               style="margin-top:20px;">
             <thead class="thead-dark">
             <tr>
-                <th scope="col" width="150px">序号</th>
-                <th scope="col" width="350px">菜名</th>
-                <th scope="col" width="150px">类型</th>
-                <th scope="col" width="150px">类别</th>
-                <th scope="col" width="180px">权重</th>
-                <th scope="col" width="150px">价格</th>
+                <th scope="col" data-width="150px" data-field="xh" data-formatter="indexFormatter">序号</th>
+                <th scope="col" data-width="350px" data-field="menuName">菜名</th>
+                <th scope="col" data-width="150px" data-field="menuClass" data-sortable="true">类型</th>
+                <th scope="col" data-width="150px" data-field="menuType" data-sortable="true">类别</th>
+                <th scope="col" data-width="180px" data-field="menuWeight" data-sortable="true">权重</th>
+                <th scope="col" data-width="150px" data-field="menuPrice" data-sortable="true">价格（元）</th>
             </tr>
             </thead>
             <tbody></tbody>
@@ -63,233 +56,96 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"
-        integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb"
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
 <script>
-    const menuList = [
-        {menuPrice: 12, menuName: '香干肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 28, menuName: '脆皮鲈鱼', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '锡包茄子', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '酱肉冬笋炒青蒜', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 8, menuName: '酸辣土豆丝', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 26, menuName: '红烧汪刺鱼', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 10, menuName: '番茄炒蛋', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '包菜粉丝', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 15, menuName: '鱼香肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '韭菜冬笋炒肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 10, menuName: '地三鲜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 15, menuName: '玉米烙', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 15, menuName: '腊肠炒甜豆', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '回锅藕片', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 18, menuName: '干锅鸡', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 10, menuName: '耗油生菜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 10, menuName: '鱼香茄子', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 15, menuName: '糖醋里脊', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '回锅肉', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '上汤娃娃菜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '家常豆腐', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 18, menuName: '上汤肚片', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '刀倒菜尖椒肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '辣子鸡', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '雪菜尖椒鱿鱼丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '雪菜蘑菇', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 18, menuName: '水煮肉片', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '三丝本芹', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 18, menuName: '干锅茶树菇', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 18, menuName: '鳗鱼茄子煲', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '农家小炒肉', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '肉丝跑蛋', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '番茄烧牛腩', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '上汤菠菜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 22, menuName: '酸菜鱼', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '酱爆荷兰豆', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '火焖冬瓜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '广式豇豆', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '蛋黄南瓜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '浪糊白菜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '虾皮尖椒', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '雪菜毛豆肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '尖椒炒肚片', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 22, menuName: '钱江肉丝', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 10, menuName: '香菇青菜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '鸡汁日本豆腐', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 32, menuName: '干锅香辣虾', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '虾仁青豆炒蛋', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 38, menuName: '铁板牛仔骨', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 55, menuName: '红烧羊肉煲', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 16, menuName: '杭三鲜', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 8, menuName: '榨菜肉丝汤', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 18, menuName: '土豆牛腩煲', menuClass: '小炒类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 10, menuName: '开胃羹', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 8, menuName: '西红柿蛋汤', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 10, menuName: '酒酿圆子羹', menuClass: '小炒类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '干锅土豆片', menuClass: '锅仔类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '干锅花菜', menuClass: '锅仔类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '干锅千叶豆腐', menuClass: '锅仔类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '干锅包菜', menuClass: '锅仔类', menuType: '素', menuWeight: 5},
-        {menuPrice: 12, menuName: '素锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '鲫鱼豆腐锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '鱼头豆腐锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '酸菜鱼头豆腐锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '笋干鸡肉锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '芋艿排骨锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '海带排骨锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '海鲜锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '腌多鲜锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '酸菜牛腩锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '三鲜锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 18, menuName: '萝卜牛腩锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 20, menuName: '肥牛锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 20, menuName: '牛蛙锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 48, menuName: '羊肉锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 28, menuName: '羊杂锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 26, menuName: '汪刺鱼锅仔', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 38, menuName: '香辣中翅', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '八宝酱丁', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 26, menuName: '水煮牛肉', menuClass: '锅仔类', menuType: '荤', menuWeight: 3},
-        {menuPrice: 26, menuName: '八宝酱小排', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '铁板鸡块', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 15, menuName: '酸菜肥牛汤粉', menuClass: '锅仔类', menuType: '荤', menuWeight: 5},
-        {menuPrice: 12, menuName: '香肠鸡蛋炒粉', menuClass: '锅仔类', menuType: '荤', menuWeight: 5}];
-
-    let tbody = document.getElementsByTagName('tbody');
-    let total = 0;
-    for (let i = 0; i < menuList.length; i++) {
-        //创建新的tr（newTr）
-        let newTr = document.createElement('tr');
-        //添加tr里的内容
-        newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + menuList[i].menuName + '</td><td>' + menuList[i].menuType + '</td><td>' + menuList[i].menuClass + '</td><td>' + menuList[i].menuWeight + '</td><td>' + menuList[i].menuPrice + '元</td>';
-        //把新的tr(newTr)加入到tbody中
-        tbody[0].appendChild(newTr);
-        total += menuList[i].menuPrice;
-    }
-    let totalTr = document.createElement('tr');
-    totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td></td><td>' + total + '元</td>';
-    tbody[0].appendChild(totalTr);
-
-    function selectMenu() {
-        $("table tbody").html('');
-        let searchName = document.getElementsByTagName("input")[0].value;
-        let searchType = document.getElementsByTagName("select")[0].value;
-        let searchList = searchType !== "默认" ? (menuList.filter(function find(val) {
-            return val.menuType === searchType;
-        })) : menuList;
-        let total = 0;
-        if (searchName){
-            let j = 0;
-            for (let i = 0; i < searchList.length; i ++){
-                if (searchList[i].menuName.indexOf(searchName) >= 0){
-                    //创建新的tr（newTr）
-                    let newTr = document.createElement('tr');
-                    //添加tr里的内容
-                    newTr.innerHTML = '<td>' + (j + 1) + '</td><td>' + searchList[i].menuName + '</td><td>' + searchList[i].menuType + '</td><td>' + searchList[i].menuClass + '</td><td>' + searchList[i].menuWeight + '</td><td>' + searchList[i].menuPrice + '元</td>';
-                    //把新的tr(newTr)加入到tbody中
-                    tbody[0].appendChild(newTr);
-                    total += searchList[i].menuPrice;
-                    j ++;
-                }
-            }
-        } else {
-            for (let i = 0; i < searchList.length; i ++){
-                //创建新的tr（newTr）
-                let newTr = document.createElement('tr');
-                //添加tr里的内容
-                newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + searchList[i].menuName + '</td><td>' + searchList[i].menuType + '</td><td>' + searchList[i].menuClass + '</td><td>' + searchList[i].menuWeight + '</td><td>' + searchList[i].menuPrice + '元</td>';
-                //把新的tr(newTr)加入到tbody中
-                tbody[0].appendChild(newTr);
-                total += searchList[i].menuPrice;
+    let menuList = [];
+    window.onload = function () {
+        let url = "menuList.json";
+        let request = new XMLHttpRequest();
+        request.open("get", url);
+        request.send(null);
+        request.onload = function () {
+            if (request.status === 200) {
+                menuList = JSON.parse(request.responseText);
             }
         }
-        let totalTr = document.createElement('tr');
-        totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td></td><td>' + total + '元</td>';
-        tbody[0].appendChild(totalTr);
+    };
+
+    function indexFormatter(value, row, index) {
+        return index + 1;
     }
 
+    let tbody = document.getElementsByTagName("tbody");
     function getMenuRandomByClass() {
         let totalPriceStart = parseInt(document.getElementsByClassName("totalPriceStart")[0].value);
         let totalPriceEnd = parseInt(document.getElementsByClassName("totalPriceEnd")[0].value);
-        let resultList = getRandomArrayElements(menuList, document.getElementById("menuClassCount1").value, document.getElementById("menuClassCount2").value, "menuClass");
-        $("table tbody").html('');
-        let total = 0;
+        let resultObject = getRandomArrayElements(menuList, "menuClass", document.getElementById("menuClassCount1").value, document.getElementById("menuClassCount2").value);
+        let resultList = resultObject.resultList;
+        let totalPrice = resultObject.totalPrice;
         let flag = false;
-        for (let i = 0; i < resultList.length; i ++){
-            //创建新的tr（newTr）
-            let newTr = document.createElement('tr');
-            //添加tr里的内容
-            newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + resultList[i].menuName + '</td><td>' + resultList[i].menuType + '</td><td>' + resultList[i].menuClass + '</td><td>' + resultList[i].menuWeight + '</td><td>' + resultList[i].menuPrice + '元</td>';
-            //把新的tr(newTr)加入到tbody中
-            tbody[0].appendChild(newTr);
-            total += resultList[i].menuPrice;
-        }
         if (totalPriceStart && totalPriceEnd){
-            if (totalPriceStart > total || total > totalPriceEnd){
+            if (totalPriceStart > totalPrice || totalPrice > totalPriceEnd){
                 flag = true;
                 getMenuRandomByClass();
             }
         } else if (totalPriceStart && !totalPriceEnd){
-            if (totalPriceStart > total){
+            if (totalPriceStart > totalPrice){
                 flag = true;
                 getMenuRandomByClass();
             }
         } else if (!totalPriceStart && totalPriceEnd){
-            if (total > totalPriceEnd){
+            if (totalPrice > totalPriceEnd){
                 flag = true;
                 getMenuRandomByClass();
             }
         }
         if (!flag){
-            let totalTr = document.createElement('tr');
-            totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td></td><td>' + total + '元</td>';
-            tbody[0].appendChild(totalTr);
+            createTable(resultList, totalPrice);
         }
     }
 
     function getMenuRandomByType() {
-        let totalPriceStart = parseInt(document.getElementsByClassName("totalPriceStart")[1].value);
-        let totalPriceEnd = parseInt(document.getElementsByClassName("totalPriceEnd")[1].value);
-        let resultList = getRandomArrayElements(menuList, document.getElementById("menuTypeCount1").value, document.getElementById("menuTypeCount2").value, "menuType");
-        $("table tbody").html('');
-        let total = 0;
+        let totalPriceStart = parseInt(document.getElementsByClassName("totalPriceStart")[0].value);
+        let totalPriceEnd = parseInt(document.getElementsByClassName("totalPriceEnd")[0].value);
+        let resultObject = getRandomArrayElements(menuList, "menuType", document.getElementById("menuTypeCount1").value, document.getElementById("menuTypeCount2").value, document.getElementById("menuTypeCount3").value);
+        let resultList = resultObject.resultList;
+        let totalPrice = resultObject.totalPrice;
         let flag = false;
-        for (let i = 0; i < resultList.length; i ++){
-            //创建新的tr（newTr）
-            let newTr = document.createElement('tr');
-            //添加tr里的内容
-            newTr.innerHTML = '<td>' + (i + 1) + '</td><td>' + resultList[i].menuName + '</td><td>' + resultList[i].menuType + '</td><td>' + resultList[i].menuClass + '</td><td>' + resultList[i].menuWeight + '</td><td>' + resultList[i].menuPrice + '元</td>';
-            //把新的tr(newTr)加入到tbody中
-            tbody[0].appendChild(newTr);
-            total += resultList[i].menuPrice;
-        }
         if (totalPriceStart && totalPriceEnd){
-            if (totalPriceStart > total || total > totalPriceEnd){
+            if (totalPriceStart > totalPrice || totalPrice > totalPriceEnd){
                 flag = true;
                 getMenuRandomByType();
             }
         } else if (totalPriceStart && !totalPriceEnd){
-            if (totalPriceStart > total){
+            if (totalPriceStart > totalPrice){
                 flag = true;
                 getMenuRandomByType();
             }
         } else if (!totalPriceStart && totalPriceEnd){
-            if (total > totalPriceEnd){
+            if (totalPrice > totalPriceEnd){
                 flag = true;
                 getMenuRandomByType();
             }
         }
         if (!flag){
-            let totalTr = document.createElement('tr');
-            totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td></td><td>' + total + '元</td>';
-            tbody[0].appendChild(totalTr);
+            createTable(resultList, totalPrice);
         }
     }
 
-    function getRandomArrayElements(arr, count1, count2, type) {
-        let resultList = [];
+    function getRandomArrayElements(arr, type, count1, count2, count3) {
+        let resultObject = {
+            resultList: [],
+            totalPrice: 0
+        };
         let list = [];
         for (let i = 0; i < arr.length; i ++){
             let j = 0;
@@ -307,18 +163,20 @@
             let i1 = 0, index1, map1 = {};
             while (i1 < count1) {
                 index1 = Math.floor((menuClassList1.length) * Math.random());
-                if (map1[index1] === undefined) {
-                    resultList.push(menuClassList1[index1]);
-                    map1[index1] = true;
+                if (map1[menuClassList1[index1].menuName] === undefined) {
+                    resultObject.resultList.push(menuClassList1[index1]);
+                    resultObject.totalPrice += menuClassList1[index1].menuPrice;
+                    map1[menuClassList1[index1].menuName] = true;
                     i1 ++;
                 }
             }
             let i2 = 0, index2, map2 = {};
             while (i2 < count2) {
                 index2 = Math.floor((menuClassList2.length) * Math.random());
-                if (map2[index2] === undefined) {
-                    resultList.push(menuClassList2[index2]);
-                    map2[index2] = true;
+                if (map2[menuClassList2[index2].menuName] === undefined) {
+                    resultObject.resultList.push(menuClassList2[index2]);
+                    resultObject.totalPrice += menuClassList2[index2].menuPrice;
+                    map2[menuClassList2[index2].menuName] = true;
                     i2 ++;
                 }
             }
@@ -329,32 +187,102 @@
             let menuTypeList2 = list.filter(function getType2(val) {
                 return val.menuType === '素';
             });
+            let menuTypeList3 = list.filter(function getType3(val) {
+                return val.menuType === '汤';
+            });
             let i1 = 0, index1, map1 = {};
             while (i1 < count1) {
                 index1 = Math.floor((menuTypeList1.length) * Math.random());
-                if (map1[index1] === undefined) {
-                    resultList.push(menuTypeList1[index1]);
-                    map1[index1] = true;
+                if (map1[menuTypeList1[index1].menuName] === undefined) {
+                    resultObject.resultList.push(menuTypeList1[index1]);
+                    resultObject.totalPrice += menuTypeList1[index1].menuPrice;
+                    map1[menuTypeList1[index1].menuName] = true;
                     i1 ++;
                 }
             }
             let i2 = 0, index2, map2 = {};
             while (i2 < count2) {
                 index2 = Math.floor((menuTypeList2.length) * Math.random());
-                if (map2[index2] === undefined) {
-                    resultList.push(menuTypeList2[index2]);
-                    map2[index2] = true;
+                if (map2[menuTypeList2[index2].menuName] === undefined) {
+                    resultObject.resultList.push(menuTypeList2[index2]);
+                    resultObject.totalPrice += menuTypeList2[index2].menuPrice;
+                    map2[menuTypeList2[index2].menuName] = true;
                     i2 ++;
                 }
             }
+            let i3 = 0, index3, map3 = {};
+            while (i3 < count3) {
+                index3 = Math.floor((menuTypeList3.length) * Math.random());
+                if (map3[menuTypeList3[index3].menuName] === undefined) {
+                    resultObject.resultList.push(menuTypeList3[index3]);
+                    resultObject.totalPrice += menuTypeList3[index3].menuPrice;
+                    map3[menuTypeList3[index3].menuName] = true;
+                    i3 ++;
+                }
+            }
         }
-        return resultList;
+        return resultObject;
+    }
+
+    function createTable(resultList, totalPrice) {
+        $("table tbody").html('');
+        for (let i = 0; i < resultList.length; i ++){
+            //创建新的tr（newTr）
+            let newTr = document.createElement('tr');
+            //添加tr里的内容
+            newTr.innerHTML = "<td class='xh'>" + (i + 1) + "</td><td class='menuName'>" + resultList[i].menuName + "</td><td class='menuType'>" + resultList[i].menuType + "</td><td class='menuClass'>" + resultList[i].menuClass + "</td><td class='menuWeight'>" + resultList[i].menuWeight + "</td><td class='menuPrice'>" + resultList[i].menuPrice + "</td>";
+            //把新的tr(newTr)加入到tbody中
+            tbody[0].appendChild(newTr);
+        }
+        let totalTr = document.createElement('tr');
+        totalTr.innerHTML = '<td>总价</td><td></td><td></td><td></td><td></td><td>' + totalPrice + '</td>';
+        tbody[0].appendChild(totalTr);
+
+        $('#table').on('dblclick', 'td', function () {
+            if ($(this)[0].className === "menuName" && $(this).children().length === 0){
+                let oldVal = $(this).text();
+                let select = "<select class='form-control' onchange='changeMenu(this)' onblur='confirmMenu(this)'>";
+                for (let i = 0; i < menuList.length; i ++){
+                    select += "<option" + (menuList[i].menuName === oldVal ? " selected='selected' " : " ") + "value='" + menuList[i].menuName + "'>" + menuList[i].menuName + "</option>";
+                }
+                select = select + "</select>";
+                $(this).text('');
+                $(this).append(select);
+            }
+        });
+    }
+
+    function changeMenu(object) {
+        let trObject = $(object).parent().parent();
+        let childrenList = $(object).parent().parent().parent().children();
+        let totalObject = $(childrenList[childrenList.length - 1]);
+        let menuRow = menuList.filter(function getType2(val) {
+            return val.menuName === $(object).val();
+        })[0];
+        trObject.empty();
+        let trStr = "<td class='xh'>" + trObject[0].rowIndex + "</td><td class='menuName'>" + menuRow.menuName + "</td><td class='menuClass'>" + menuRow.menuClass + "</td><td class='menuType'>" + menuRow.menuType + "</td><td class='menuWeight'>" + menuRow.menuWeight + "</td><td class='menuPrcie'>" + menuRow.menuPrice + "</td>";
+        trObject.append(trStr);
+        let totalPrice = 0;
+        for (let i = 0; i < childrenList.length - 1; i ++){
+            let childTr = $(childrenList[i]);
+            totalPrice += parseInt($(childTr.children()[childTr.children().length - 1]).text());
+        }
+        totalObject.empty();
+        let totalStr = "<td>总价</td><td></td><td></td><td></td><td></td><td>" + totalPrice + "</td>";
+        totalObject.append(totalStr);
+    }
+
+    function confirmMenu(object) {
+        let tdObject = $(object).parent();
+        let val = $(object).val();
+        tdObject.empty();
+        tdObject.append(val);
     }
 
     function submitMenu() {
         let submitStr = "";
-        for (let i = 0; i < tbody[0].children.length; i ++){
-            submitStr += tbody[0].children[i].innerHTML.split("</td>")[1].substring(4, tbody[0].children[0].innerHTML.split("</td>")[1].length) + (i === tbody[0].children.length - 1? "" : "\n");
+        for (let i = 0; i < tbody[0].children.length - 1; i ++){
+            submitStr += tbody[0].children[i].innerHTML.split("</td>")[1].split(">")[1] + (i === tbody[0].children.length - 2? "" : "\n");
         }
         let varbotData = {
             "msgtype": "text",
@@ -370,7 +298,9 @@
             success : function (res) {
                 alert("上传成功");
             },
-            error : function() {}
+            error : function() {
+                alert("上传失败");
+            }
         });
     }
 </script>
